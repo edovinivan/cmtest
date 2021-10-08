@@ -1,25 +1,38 @@
 package com.example.cmtest.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "USERS")
 public class Users implements Serializable {
     @Id
     @Column(name = "LOGIN")
-    String login;
+    private String login;
 
     @Column(name = "NAME")
-    String name;
+    private String name;
 
     @Column(name = "PASSWORD")
-    String password;
+    private String password;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable (name="USERSROLES",
+            joinColumns=@JoinColumn (name="USERS"),
+            inverseJoinColumns=@JoinColumn(name="ROLES"))
+    private List<Roles> roles;
 
     public Users() {
+    }
+
+    public List<Roles> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Roles> roles) {
+        this.roles = roles;
     }
 
     public String getLogin() {
@@ -44,5 +57,27 @@ public class Users implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "Users{" +
+                "login='" + login + '\'' +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Users users = (Users) o;
+        return Objects.equals(login, users.login) && Objects.equals(name, users.name) && Objects.equals(password, users.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(login, name, password);
     }
 }
