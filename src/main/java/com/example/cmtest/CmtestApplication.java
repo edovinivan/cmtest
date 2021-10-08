@@ -1,0 +1,13 @@
+package com.example.cmtest;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class CmtestApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(CmtestApplication.class, args);
+    }
+
+}
