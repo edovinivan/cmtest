@@ -71,6 +71,8 @@ public class UsersController {
     @PostMapping(value = "/user")
     public String addUsers(@RequestBody Users users){
 
+        System.out.println(users.toString());
+
         return "OK";
     }
 }
